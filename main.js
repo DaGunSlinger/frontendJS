@@ -8,6 +8,9 @@ const mobileMenu = document.querySelector('.mobile-menu')
 const iconCart = document.querySelector('.navbar-shopping-cart')
 const productsInCart = document.querySelector('.product-detail')
 
+const productDetailContainer = document.querySelector('.product-individual-detail')
+const xDetailContainer = document.querySelector('.product-individual-detail-close')
+
 
 menuEmail.addEventListener('click', toggleDesktopMenu)
 function toggleDesktopMenu(){
@@ -15,6 +18,7 @@ function toggleDesktopMenu(){
     if(!productsInCart.classList.contains('inactive')){
         productsInCart.classList.toggle('inactive')
     }
+    closeDetailItem()
 }
 
 burguerMenu.addEventListener('click', toggleMobileMenu)
@@ -23,6 +27,7 @@ function toggleMobileMenu(){
     if(!productsInCart.classList.contains('inactive')){
         productsInCart.classList.toggle('inactive')
     }
+    closeDetailItem()
 }
 
 iconCart.addEventListener('click', toggleCart)
@@ -34,6 +39,25 @@ function toggleCart(){
     if(!desktopMenu.classList.toggle('inactive')){
         desktopMenu.classList.toggle('inactive')
     }
+    closeDetailItem()
+}
+
+function openDetailItem(){
+    productDetailContainer.classList.remove('inactive')
+    if(!desktopMenu.classList.contains('inactive')){
+        desktopMenu.classList.toggle('inactive')
+    }
+    if(!productsInCart.classList.contains('inactive')){
+        productsInCart.classList.toggle('inactive')
+    }
+    if(!mobileMenu.classList.contains('inactive')){
+        mobileMenu.classList.toggle('inactive')
+    }
+}
+
+xDetailContainer.addEventListener('click', closeDetailItem)
+function closeDetailItem(){
+    productDetailContainer.classList.add('inactive')
 }
 
 //Variables para manipulación de listas
@@ -78,6 +102,7 @@ function renderProducts(){
     
         const productImg = document.createElement('img')
         productImg.setAttribute('src', product.image);
+        productImg.addEventListener('click', openDetailItem)
     
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info')
